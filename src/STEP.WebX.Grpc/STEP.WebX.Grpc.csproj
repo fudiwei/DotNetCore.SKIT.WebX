@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.0; netcoreapp3.1</TargetFrameworks>
+        <TieredCompilation>true</TieredCompilation>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>STEP.WebX.Grpc</PackageId>
+        <Version>1.0.0</Version>
+        <Description>A distributed micro-service framework based on gRPC.</Description>
+        <Authors>Fu Diwei</Authors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.29.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\STEP.WebX.Core\STEP.WebX.Core.csproj" />
+    </ItemGroup>
+
+</Project>

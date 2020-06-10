@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "STEP.WebX.GrpcSample";
+
+package Calculate;
+
+service Calculator {
+  rpc Sum (SumRequest) returns (SumResponse);
+}
+
+message SumRequest {
+  int32 numA = 1;
+  int32 numB = 2;
+}
+
+message SumResponse {
+  int32 result = 1;
+}

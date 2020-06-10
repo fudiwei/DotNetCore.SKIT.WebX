@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp2.1; netcoreapp2.2; netcoreapp3.0; netcoreapp3.1</TargetFrameworks>
+        <TieredCompilation>true</TieredCompilation>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>STEP.WebX.Core</PackageId>
+        <Version>1.0.0</Version>
+        <Description>The core component of STEP.WebX (a distributed micro-service framework).</Description>
+        <Authors>Fu Diwei</Authors>
+    </PropertyGroup>
+
+    <Choose>
+        <When Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp2.2'">
+            <PropertyGroup>
+                <DefineConstants>$(DefineConstants); NETCORE_2_X</DefineConstants>
+            </PropertyGroup>
+
+            <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+                <PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
+            </ItemGroup>
+
+            <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+                <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+            </ItemGroup>
+        </When>
+
+        <Otherwise>
+            <PropertyGroup>
+                <DefineConstants>$(DefineConstants); NETCORE_3_X</DefineConstants>
+            </PropertyGroup>
+
+            <ItemGroup>
+                <FrameworkReference Include="Microsoft.AspNetCore.App" />
+                <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+            </ItemGroup>
+        </Otherwise>
+    </Choose>
+
+    <ItemGroup>
+        <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.1" />
+    </ItemGroup>
+
+</Project>
