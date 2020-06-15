@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
-namespace STEP.WebX.Sample.Services.Background
+namespace STEP.WebX.RESTfulSample.Services.Background
 {
     class ClockingService : BackgroundSchedulerService
     {
