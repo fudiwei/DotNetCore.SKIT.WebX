@@ -10,7 +10,7 @@ namespace STEP.WebX.RESTful.Middlewares
     /// <summary>
     /// 
     /// </summary>
-    internal class UnsupportedMediaTypeStatusCodeConverterMiddleware
+    internal class UnsupportedMediaTypeHandleriddleware
     {
         private readonly RequestDelegate _next;
 
@@ -18,7 +18,7 @@ namespace STEP.WebX.RESTful.Middlewares
         /// 
         /// </summary>
         /// <param name="next"></param>
-        public UnsupportedMediaTypeStatusCodeConverterMiddleware(RequestDelegate next)
+        public UnsupportedMediaTypeHandleriddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -50,16 +50,16 @@ namespace Microsoft.AspNetCore.Builder
     /// <summary>
     /// 
     /// </summary>
-    public static class UnsupportedMediaTypeStatusCodeConverterMiddlewareExtensions
+    public static class UnsupportedMediaTypeHandlerMiddlewareExtensions
     {
         /// <summary>
         /// Convert status code from 415 to 400 if there is an unsupported media type error.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseUnsupportedMediaTypeStatusCodeConverter(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseUnsupportedMediaTypeHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<UnsupportedMediaTypeStatusCodeConverterMiddleware>();
+            return builder.UseMiddleware<UnsupportedMediaTypeHandleriddleware>();
         }
     }
 }

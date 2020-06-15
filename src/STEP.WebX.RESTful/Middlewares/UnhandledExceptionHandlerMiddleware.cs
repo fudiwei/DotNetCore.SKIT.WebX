@@ -25,7 +25,7 @@ namespace STEP.WebX.RESTful.Middlewares
     /// <summary>
     /// 
     /// </summary>
-    internal class UnmatchedExceptionHandledMiddleware
+    internal class UnhandledExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
@@ -37,7 +37,7 @@ namespace STEP.WebX.RESTful.Middlewares
         /// <param name="next"></param>
         /// <param name="loggerFactory"></param>
         /// <param name="logGenerator"></param>
-        public UnmatchedExceptionHandledMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, ExceptionLogGenerator logGenerator)
+        public UnhandledExceptionHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory, ExceptionLogGenerator logGenerator)
         {
             _next = next;
             _logger = loggerFactory.CreateLogger(GetType());
@@ -126,14 +126,14 @@ namespace Microsoft.AspNetCore.Builder
     /// <summary>
     /// 
     /// </summary>
-    public static class ExceptionWrapperMiddlewareExtensions
+    public static class UnhandledExceptionHandlerMiddlewareExtensions
     {
         /// <summary>
         /// Wrap exceptions, so all exceptions thrown are converted to <see cref="STEP.WebX.RESTful.WebApi.IRESTfulResult"/> automagically.
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseExceptionWrapper(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseUnhandledExceptionHandler(this IApplicationBuilder builder)
         {
             ExceptionLogGenerator logGenerator = (HttpContext context, Exception ex) => 
             {
@@ -194,7 +194,7 @@ namespace Microsoft.AspNetCore.Builder
                 return logBuilder.ToString();
             };
 
-            return UseExceptionWrapper(builder, logGenerator);
+            return UseUnhandledExceptionHandler(builder, logGenerator);
         }
 
         /// <summary>
@@ -203,12 +203,12 @@ namespace Microsoft.AspNetCore.Builder
         /// <param name="builder"></param>
         /// <param name="logGenerator"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseExceptionWrapper(this IApplicationBuilder builder, ExceptionLogGenerator logGenerator)
+        public static IApplicationBuilder UseUnhandledExceptionHandler(this IApplicationBuilder builder, ExceptionLogGenerator logGenerator)
         {
             if (logGenerator == null)
                 throw new ArgumentNullException(nameof(logGenerator));
 
-            return builder.UseMiddleware<UnmatchedExceptionHandledMiddleware>(logGenerator);
+            return builder.UseMiddleware<UnhandledExceptionHandlerMiddleware>(logGenerator);
         }
     }
 }

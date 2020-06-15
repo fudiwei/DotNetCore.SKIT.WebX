@@ -6,14 +6,48 @@ using Microsoft.AspNetCore.Routing;
 namespace STEP.WebX.RESTful
 {
     /// <summary>
+    /// Provides programmatic configuration for the RESTful error handlers.
+    /// </summary>
+    public sealed class RESTfulErrorOptions
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether using <see cref="Middlewares.UnhandledExceptionHandlerMiddleware"/>.
+        /// The default is 'true'.
+        /// </summary>
+        public bool UnhandledExceptionHandlerEnabled { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a function to generate log message when an exception is thrown.
+        /// </summary>
+        public Middlewares.ExceptionLogGenerator UnhandledExceptionLogGenerator { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether using <see cref="Middlewares.UnsupportedMediaTypeHandleriddleware"/>.
+        /// The default is 'true'.
+        /// </summary>
+        public bool UnsupportedMediaTypeHandlerEnabled { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether using <see cref="Middlewares.UnmatchedRouteHandlerMiddleware"/>.
+        /// The default is 'true'.
+        /// </summary>
+        public bool UnmatchedRouteHandlerEnabled { get; set; } = true;
+    }
+
+    /// <summary>
     /// Settings used to configure application instances.
     /// </summary>
     public sealed class WebXRESTfulApplicationSettings
     {
         /// <summary>
+        /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="RESTfulErrorOptions"/>.
+        /// </summary>
+        public Action<RESTfulErrorOptions> SetupRESTfulErrorOptions { get; set; } = (options) => { };
+
+        /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="HealthCheckOptions"/>.
         /// </summary>
-        public Action<HealthCheckOptions> SetupHealthCheckOptionsSetup { get; set; } = (options) => { };
+        public Action<HealthCheckOptions> SetupHealthCheckOptions { get; set; } = (options) => { };
 
         /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="ForwardedHeadersOptions"/>.
@@ -81,16 +115,33 @@ namespace Microsoft.AspNetCore.Builder
 
             // Use RESTful Middlewares
             {
-                app.UseExceptionWrapper();
-                app.UseUnsupportedMediaTypeStatusCodeConverter();
-                app.UseUnmatchedRouteHandler();
+                RESTfulErrorOptions options = new RESTfulErrorOptions();
+                settings.SetupRESTfulErrorOptions.Invoke(options);
+
+                if (options.UnhandledExceptionHandlerEnabled)
+                {
+                    if (options.UnhandledExceptionLogGenerator == null)
+                        app.UseUnhandledExceptionHandler();
+                    else
+                        app.UseUnhandledExceptionHandler(options.UnhandledExceptionLogGenerator);
+                }
+
+                if (options.UnsupportedMediaTypeHandlerEnabled)
+                {
+                    app.UseUnsupportedMediaTypeHandler();
+                }
+
+                if (options.UnmatchedRouteHandlerEnabled)
+                {
+                    app.UseUnmatchedRouteHandler();
+                }
             }
 
             // Use HealthCheck
             const string HEALTHCHECK_PATH = "/healthz";
             {
                 HealthCheckOptions options = new HealthCheckOptions();
-                settings.SetupHealthCheckOptionsSetup.Invoke(options);
+                settings.SetupHealthCheckOptions.Invoke(options);
 
                 app = app.UseHealthChecks(HEALTHCHECK_PATH, options);
             }

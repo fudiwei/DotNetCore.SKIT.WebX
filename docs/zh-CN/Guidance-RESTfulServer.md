@@ -97,7 +97,12 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
     services.UseWebXRESTful(settings => 
     {
-        settings.SetupHealthCheckOptionsSetup = (options) => 
+        settings.SetupRESTfulErrorOptions = (options) => 
+        {
+            // RESTful 错误处理中间件配置
+        };
+
+        settings.SetupHealthCheckOptions = (options) => 
         {
             // 健康检查中间件配置
         };
