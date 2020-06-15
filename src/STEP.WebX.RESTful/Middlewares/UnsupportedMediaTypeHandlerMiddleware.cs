@@ -10,7 +10,7 @@ namespace STEP.WebX.RESTful.Middlewares
     /// <summary>
     /// 
     /// </summary>
-    internal class UnsupportedMediaTypeHandleriddleware
+    internal class UnsupportedMediaTypeHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 
@@ -18,7 +18,7 @@ namespace STEP.WebX.RESTful.Middlewares
         /// 
         /// </summary>
         /// <param name="next"></param>
-        public UnsupportedMediaTypeHandleriddleware(RequestDelegate next)
+        public UnsupportedMediaTypeHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -59,7 +59,7 @@ namespace Microsoft.AspNetCore.Builder
         /// <returns></returns>
         public static IApplicationBuilder UseUnsupportedMediaTypeHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<UnsupportedMediaTypeHandleriddleware>();
+            return builder.UseMiddleware<UnsupportedMediaTypeHandlerMiddleware>();
         }
     }
 }

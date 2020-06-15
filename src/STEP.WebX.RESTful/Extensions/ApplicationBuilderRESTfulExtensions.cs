@@ -22,7 +22,7 @@ namespace STEP.WebX.RESTful
         public Middlewares.ExceptionLogGenerator UnhandledExceptionLogGenerator { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether using <see cref="Middlewares.UnsupportedMediaTypeHandleriddleware"/>.
+        /// Gets or sets a value indicating whether using <see cref="Middlewares.UnsupportedMediaTypeHandlerMiddleware"/>.
         /// The default is 'true'.
         /// </summary>
         public bool UnsupportedMediaTypeHandlerEnabled { get; set; } = true;
