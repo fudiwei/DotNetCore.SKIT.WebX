@@ -47,8 +47,8 @@
             </ItemGroup>
 
             <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-                <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
-                <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.4" />
+                <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
+                <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.5" />
             </ItemGroup>
         </Otherwise>
     </Choose>
