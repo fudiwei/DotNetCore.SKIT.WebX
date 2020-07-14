@@ -9,10 +9,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.29.0" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\..\src\STEP.WebX.Core\STEP.WebX.Core.csproj" />
         <ProjectReference Include="..\..\src\STEP.WebX.gRPC\STEP.WebX.Grpc.csproj" />
     </ItemGroup>

@@ -80,11 +80,6 @@ namespace STEP.WebX.RESTful
         { 
         }
     }
-}
-
-namespace Microsoft.AspNetCore.Builder
-{
-    using STEP.WebX.RESTful;
 
     /// <summary>
     /// 

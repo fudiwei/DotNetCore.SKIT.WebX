@@ -3,10 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.AspNetCore.Http
+namespace STEP.WebX.RESTful
 {
-    using STEP.WebX.RESTful.Exceptions;
-
     /// <summary>
     /// 
     /// </summary>
@@ -25,7 +23,7 @@ namespace Microsoft.AspNetCore.Http
             {
                 action.Invoke(await request.ReadBodyAsJsonAsync());
             }
-            catch (RESTfulException ex) when (throwIfException)
+            catch (Exceptions.RESTfulException ex)
             {
                 if (throwIfException)
                     throw ex;
@@ -33,7 +31,7 @@ namespace Microsoft.AspNetCore.Http
             catch (Exception ex)
             {
                 if (throwIfException)
-                    throw new BadRequest400DataParsingException("An error occured when trying to parse request body to JSON.", ex);
+                    throw new Exceptions.BadRequest400DataParsingException("An error occured when trying to parse request body to JSON.", ex);
             }
         }
 
@@ -50,7 +48,7 @@ namespace Microsoft.AspNetCore.Http
             {
                 return func.Invoke(await request.ReadBodyAsJsonAsync());
             }
-            catch (RESTfulException ex)
+            catch (Exceptions.RESTfulException ex)
             {
                 if (throwIfException)
                     throw ex;
@@ -60,7 +58,7 @@ namespace Microsoft.AspNetCore.Http
             catch (Exception ex)
             {
                 if (throwIfException)
-                    throw new BadRequest400DataParsingException("An error occured when trying to parse request body to JSON.", ex);
+                    throw new Exceptions.BadRequest400DataParsingException("An error occured when trying to parse request body to JSON.", ex);
                 else
                     return default(T);
             }

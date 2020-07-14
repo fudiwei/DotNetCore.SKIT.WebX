@@ -43,9 +43,9 @@ namespace STEP.WebX.RESTful.Middlewares
     }
 }
 
-namespace Microsoft.AspNetCore.Builder
+namespace STEP.WebX.RESTful
 {
-    using STEP.WebX.RESTful.Middlewares;
+    using Middlewares;
 
     /// <summary>
     /// 

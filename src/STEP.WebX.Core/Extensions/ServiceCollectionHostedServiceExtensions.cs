@@ -5,11 +5,8 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace STEP.WebX
 {
-    using Microsoft.Extensions.DependencyInjection.Extensions;
-    using STEP.WebX;
-
     /// <summary>
     /// 
     /// </summary>

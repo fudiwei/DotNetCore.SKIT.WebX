@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 
-namespace Microsoft.AspNetCore.Builder
+namespace STEP.WebX.RESTful
 {
     /// <summary>
     /// 

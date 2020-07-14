@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
-namespace Microsoft.AspNetCore.Cors
+namespace STEP.WebX.RESTful
 {
     /// <summary>
     /// 

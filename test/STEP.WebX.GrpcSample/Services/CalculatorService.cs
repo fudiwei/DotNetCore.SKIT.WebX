@@ -23,7 +23,7 @@ namespace STEP.WebX.GrpcSample
         {
             return Task.FromResult(new SumResponse()
             { 
-                Result = request.NumA + request.NumB
+                Value = request.NumA + request.NumB
             });
         }
     }

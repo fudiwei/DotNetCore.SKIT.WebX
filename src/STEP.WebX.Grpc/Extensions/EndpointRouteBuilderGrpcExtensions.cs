@@ -5,10 +5,8 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Microsoft.AspNetCore.Routing
+namespace STEP.WebX.Grpc
 {
-    using STEP.WebX.Grpc;
-
     /// <summary>
     /// 
     /// </summary>

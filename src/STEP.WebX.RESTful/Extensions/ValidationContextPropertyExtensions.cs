@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
-namespace System.ComponentModel.DataAnnotations
+namespace STEP.WebX.RESTful
 {
-    using STEP.WebX.RESTful.Exceptions;
-
     /// <summary>
     /// 
     /// </summary>

@@ -23,11 +23,6 @@ namespace STEP.WebX.Grpc
         { 
         }
     }
-}
-
-namespace Microsoft.AspNetCore.Builder
-{
-    using STEP.WebX.Grpc;
 
     /// <summary>
     /// 

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Microsoft.AspNetCore.Hosting
+namespace STEP.WebX
 {
     /// <summary>
     /// 

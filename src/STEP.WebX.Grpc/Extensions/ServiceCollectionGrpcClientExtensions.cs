@@ -6,10 +6,8 @@ using Microsoft.Extensions.Options;
 using Grpc.Core;
 using Grpc.Net.ClientFactory;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace STEP.WebX.Grpc
 {
-    using STEP.WebX.Grpc;
-
     /// <summary>
     /// 
     /// </summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace Microsoft.AspNetCore.Http
+namespace STEP.WebX
 {
     /// <summary>
     /// 

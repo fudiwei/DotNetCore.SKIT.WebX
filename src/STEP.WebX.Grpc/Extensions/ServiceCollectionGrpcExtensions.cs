@@ -40,11 +40,6 @@ namespace STEP.WebX.Grpc
         {
         }
     }
-}
-
-namespace Microsoft.Extensions.DependencyInjection
-{
-    using STEP.WebX.Grpc;
 
     /// <summary>
     /// 

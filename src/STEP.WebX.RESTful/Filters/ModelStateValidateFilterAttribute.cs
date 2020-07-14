@@ -51,9 +51,9 @@ namespace STEP.WebX.RESTful.Filters
     }
 }
 
-namespace Microsoft.AspNetCore.Mvc
+namespace STEP.WebX.RESTful
 {
-    using STEP.WebX.RESTful.Filters;
+    using Filters;
 
     /// <summary>
     /// 
