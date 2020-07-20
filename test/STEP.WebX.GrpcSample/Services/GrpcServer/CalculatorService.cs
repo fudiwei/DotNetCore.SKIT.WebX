@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 
-namespace STEP.WebX.GrpcSample
+namespace STEP.WebX.GrpcSample.Services.GrpcServer
 {
     using Grpc;
 
