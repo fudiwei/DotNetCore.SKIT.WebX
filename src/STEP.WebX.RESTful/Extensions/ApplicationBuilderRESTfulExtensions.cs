@@ -137,7 +137,6 @@ namespace STEP.WebX.RESTful
             {
                 HealthCheckOptions options = new HealthCheckOptions();
                 settings.SetupHealthCheckOptions.Invoke(options);
-
                 app = app.UseHealthChecks(HEALTHCHECK_PATH, options);
             }
 
@@ -145,27 +144,31 @@ namespace STEP.WebX.RESTful
             {
                 ForwardedHeadersOptions options = new ForwardedHeadersOptions();
                 settings.SetupForwardedHeadersOptions.Invoke(options);
-
                 app = app.UseForwardedHeaders(options);
             }
 
 #if NETCORE_2_X
-            // Use Mvc & CORS
+            // Use Mvc & CORS & AUTH
             {
                 app.UseDefaultCors();
 
-                settings.ExecuteBeforeUseMvc.Invoke(app);
+                app.UseAuthentication();
 
+                settings.ExecuteBeforeUseMvc.Invoke(app);
                 app.UseMvc(settings.ConfigureRouteBuilder);
             }
 #else
-            // Use Routing & CORS & Endpoints
+            // Use Routing & CORS & AUTH & Endpoints
             {
+                app.UseAuthentication();
+
                 app.UseRouting();
+
                 app.UseDefaultCors();
 
+                app.UseAuthorization();
+                
                 settings.ExecuteBeforeUseEndpoints.Invoke(app);
-
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapHealthChecks(HEALTHCHECK_PATH);
