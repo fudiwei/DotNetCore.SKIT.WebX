@@ -21,10 +21,7 @@ namespace STEP.WebX.GrpcSample
 
             services.AddHostedServices();
 
-            services.AddGrpcClient<Calculator.CalculatorClient>(options =>
-            {
-                options.Address = new Uri("https://localhost:5001");
-            });
+            services.AddGrpcClient<Calculator.CalculatorClient, Options.CalculatorGrpcClientOptions>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

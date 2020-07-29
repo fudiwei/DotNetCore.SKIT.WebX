@@ -53,6 +53,9 @@ namespace STEP.WebX.Grpc
             {
                 TOptions gRpcClientOptions = provider.GetRequiredService<IOptions<TOptions>>().Value;
 
+                if (gRpcClientOptions.BaseAddress == null)
+                    throw new ArgumentException("The base address of gRPC client cannot be empty.");
+
                 options.Address = gRpcClientOptions.BaseAddress;
                 options.ChannelOptionsActions.Add(channel =>
                 {
@@ -60,6 +63,7 @@ namespace STEP.WebX.Grpc
                     channel.MaxSendMessageSize = gRpcClientOptions.MaxChannelSendMessageSize;
                     channel.MaxReceiveMessageSize = gRpcClientOptions.MaxChannelReceiveMessageSize;
                     channel.ThrowOperationCanceledOnCancellation = true;
+                    channel.DisposeHttpClient = true;
 
                     if (!Uri.UriSchemeHttps.Equals(options.Address.Scheme, StringComparison.InvariantCultureIgnoreCase))
                         channel.Credentials = ChannelCredentials.Insecure;
