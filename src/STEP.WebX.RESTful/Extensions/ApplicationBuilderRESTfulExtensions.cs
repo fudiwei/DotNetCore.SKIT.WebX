@@ -66,6 +66,11 @@ namespace STEP.WebX.RESTful
         public Action<IRouteBuilder> ConfigureRouteBuilder { get; set; } = (builder) => { };
 #else
         /// <summary>
+        /// Gets or sets an <see cref="System.Action"/> to be executed before UseRouting.
+        /// </summary>
+        public Action<IApplicationBuilder> ExecuteBeforeUseRouting { get; set; } = (builder) => { };
+
+        /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to be executed before UseEndpoints.
         /// </summary>
         public Action<IApplicationBuilder> ExecuteBeforeUseEndpoints { get; set; } = (builder) => { };
@@ -148,25 +153,20 @@ namespace STEP.WebX.RESTful
             }
 
 #if NETCORE_2_X
-            // Use Mvc & CORS & AUTH
+            // Use Mvc & CORS
             {
                 app.UseDefaultCors();
-
-                app.UseAuthentication();
 
                 settings.ExecuteBeforeUseMvc.Invoke(app);
                 app.UseMvc(settings.ConfigureRouteBuilder);
             }
 #else
-            // Use Routing & CORS & AUTH & Endpoints
+            // Use Routing & CORS & Endpoints
             {
-                app.UseAuthentication();
-
+                settings.ExecuteBeforeUseRouting.Invoke(app);
                 app.UseRouting();
 
                 app.UseDefaultCors();
-
-                app.UseAuthorization();
                 
                 settings.ExecuteBeforeUseEndpoints.Invoke(app);
                 app.UseEndpoints(endpoints =>

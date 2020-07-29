@@ -48,16 +48,6 @@ namespace STEP.WebX.RESTful
         public Action<ForwardedHeadersOptions> SetupForwardedHeadersOptions { get; set; } = (options) => { };
 
         /// <summary>
-        /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="AuthenticationOptions"/>.
-        /// </summary>
-        public Action<AuthenticationOptions> SetupAuthenticationOptions { get; set; } = (options) => { };
-
-        /// <summary>
-        /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="AuthorizationOptions"/>.
-        /// </summary>
-        public Action<AuthorizationOptions> SetupAuthorizationOptions { get; set; } = (options) => { };
-
-        /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to setup the provided <see cref="MvcOptions"/>.
         /// </summary>
         public Action<MvcOptions> SetupMvcOptions { get; set; } = (options) => { };
@@ -66,11 +56,6 @@ namespace STEP.WebX.RESTful
         /// Gets or sets an <see cref="System.Action"/> to configure the provided <see cref="IHealthChecksBuilder"/>.
         /// </summary>
         public Action<IHealthChecksBuilder> ConfigureHealthChecksBuilder { get; set; } = (builder) => { };
-
-        /// <summary>
-        /// Gets or sets an <see cref="System.Action"/> to configure the provided <see cref="AuthenticationBuilder"/>.
-        /// </summary>
-        public Action<AuthenticationBuilder> ConfigureAuthenticationBuilder { get; set; } = (builder) => { };
 
         /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to configure the provided <see cref="IMvcBuilder"/>.
@@ -152,17 +137,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 IHealthChecksBuilder builder = services.AddHealthChecks();
                 settings.ConfigureHealthChecksBuilder.Invoke(builder);
-            }
-
-            // Inject Authentication
-            {
-                AuthenticationBuilder builder = services.AddAuthentication(settings.SetupAuthenticationOptions);
-                settings.ConfigureAuthenticationBuilder.Invoke(builder);
-            }
-
-            // Inject Authorization
-            {
-                services.AddAuthorization(settings.SetupAuthorizationOptions);
             }
 
             // Inject Mvc
