@@ -16,7 +16,10 @@ namespace STEP.WebX.Grpc
         /// <summary>
         /// Adds gRPC clients to the specified Microsoft.Extensions.DependencyInjection.IServiceCollection.
         /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
         /// <param name="services"></param>
+        /// <returns></returns>
         public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase
             where TOptions : class, IGrpcClientOptions, IOptions<TOptions>, new()
@@ -27,8 +30,11 @@ namespace STEP.WebX.Grpc
         /// <summary>
         /// Adds gRPC clients to the specified Microsoft.Extensions.DependencyInjection.IServiceCollection.
         /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
         /// <param name="services"></param>
         /// <param name="configureClient"></param>
+        /// <returns></returns>
         public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Action<GrpcClientFactoryOptions> configureClient)
             where TClient : ClientBase
             where TOptions : class, IGrpcClientOptions, IOptions<TOptions>, new()
@@ -39,16 +45,82 @@ namespace STEP.WebX.Grpc
         /// <summary>
         /// Adds gRPC clients to the specified Microsoft.Extensions.DependencyInjection.IServiceCollection.
         /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
         /// <param name="services"></param>
         /// <param name="configureClient"></param>
+        /// <returns></returns>
         public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
             where TClient : ClientBase
             where TOptions : class, IGrpcClientOptions, IOptions<TOptions>, new()
         {
+            return AddGrpcClient<TClient, TOptions>(services, (provider) => provider.GetRequiredService<IOptions<TOptions>>().Value, configureClient);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="setupOptions"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Func<TOptions> setupOptions)
+            where TClient : ClientBase
+            where TOptions : class, IGrpcClientOptions, IOptions<TOptions>, new()
+        {
+            return AddGrpcClient<TClient, TOptions>(services, (provider) => setupOptions?.Invoke(), (provider, options) => { });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="setupOptions"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Func<IServiceProvider, TOptions> setupOptions)
+            where TClient : ClientBase
+            where TOptions : class, IGrpcClientOptions
+        {
+            return AddGrpcClient<TClient, TOptions>(services, setupOptions, (provider, options) => { });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="setupOptions"></param>
+        /// <param name="configureClient"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Func<IServiceProvider, TOptions> setupOptions, Action<GrpcClientFactoryOptions> configureClient)
+            where TClient : ClientBase
+            where TOptions : class, IGrpcClientOptions
+        {
+            return AddGrpcClient<TClient, TOptions>(services, setupOptions, (provider, options) => configureClient?.Invoke(options));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TClient"></typeparam>
+        /// <typeparam name="TOptions"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="setupOptions"></param>
+        /// <param name="configureClient"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddGrpcClient<TClient, TOptions>(this IServiceCollection services, Func<IServiceProvider, TOptions> setupOptions, Action<IServiceProvider, GrpcClientFactoryOptions> configureClient)
+            where TClient : ClientBase
+            where TOptions : class, IGrpcClientOptions
+        {
             return services.AddGrpcClient<TClient>((provider, options) =>
             {
-                TOptions gRpcClientOptions = provider.GetRequiredService<IOptions<TOptions>>().Value;
-
+                TOptions gRpcClientOptions = setupOptions?.Invoke(provider);
+                if (gRpcClientOptions == null)
+                    throw new ArgumentException("The options of gRPC client cannot be empty.");
                 if (gRpcClientOptions.BaseAddress == null)
                     throw new ArgumentException("The base address of gRPC client cannot be empty.");
 
@@ -68,10 +140,11 @@ namespace STEP.WebX.Grpc
                 configureClient?.Invoke(provider, options);
             }).ConfigurePrimaryHttpMessageHandler(provider =>
             {
-                TOptions gRpcClientOptions = provider.GetRequiredService<IOptions<TOptions>>().Value;
+                TOptions gRpcClientOptions = setupOptions?.Invoke(provider);
+                if (gRpcClientOptions == null)
+                    throw new ArgumentException("The options of gRPC client cannot be empty.");
 
                 HttpClientHandler handler = new HttpClientHandler();
-
                 if (gRpcClientOptions.IgnoreCertificateErrors)
                     handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
 
