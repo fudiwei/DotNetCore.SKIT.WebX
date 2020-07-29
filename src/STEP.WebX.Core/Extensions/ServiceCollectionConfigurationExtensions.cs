@@ -15,31 +15,6 @@ namespace STEP.WebX
         /// </summary>
         /// <typeparam name="TOptions"></typeparam>
         /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection RegisterOptions<TOptions>(this IServiceCollection services)
-                where TOptions : class, IOptions<TOptions>, new()
-        {
-            return RegisterOptions<TOptions>(services, services.BuildServiceProvider().GetRequiredService<IConfiguration>());
-        }
-
-        /// <summary>
-        /// Registers a configuration instance which TOptions will bind against with the specified key.
-        /// </summary>
-        /// <typeparam name="TOptions"></typeparam>
-        /// <param name="services"></param>
-        /// <param name="sectionKey"></param>
-        /// <returns></returns>
-        public static IServiceCollection RegisterOptions<TOptions>(this IServiceCollection services, string sectionKey)
-                where TOptions : class, IOptions<TOptions>, new()
-        {
-            return RegisterOptions<TOptions>(services, services.BuildServiceProvider().GetRequiredService<IConfiguration>(), sectionKey);
-        }
-
-        /// <summary>
-        /// Registers a configuration instance which TOptions will bind against.
-        /// </summary>
-        /// <typeparam name="TOptions"></typeparam>
-        /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
         public static IServiceCollection RegisterOptions<TOptions>(this IServiceCollection services, IConfiguration configuration)

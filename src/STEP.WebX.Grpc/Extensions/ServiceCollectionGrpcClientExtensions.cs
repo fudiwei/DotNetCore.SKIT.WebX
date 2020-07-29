@@ -45,10 +45,6 @@ namespace STEP.WebX.Grpc
             where TClient : ClientBase
             where TOptions : class, IGrpcClientOptions, IOptions<TOptions>, new()
         {
-            services.RegisterOptions<TOptions>();
-
-            services.AddHttpClient();
-
             return services.AddGrpcClient<TClient>((provider, options) =>
             {
                 TOptions gRpcClientOptions = provider.GetRequiredService<IOptions<TOptions>>().Value;
