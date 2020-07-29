@@ -79,13 +79,13 @@ public class SampleOptions
     public string Name { get; set; }
 }
 
-services.RegisterOptions<SampleOptions>();
+services.RegisterOptions<SampleOptions>(configuration);
 ```
 
 如果强类型实体类名与配置源中的名称不一致，那么可以：
 
 ``` csharp
-services.RegisterOptions<SampleOptions>("SampleAlias");
+services.RegisterOptions<SampleOptions>("SampleAlias", configuration);
 ```
 
 ---
