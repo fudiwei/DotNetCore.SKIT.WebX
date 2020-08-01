@@ -167,7 +167,8 @@ namespace STEP.WebX.RESTful
                         !HttpMethod.Options.Method.Equals(context.Request.Method, StringComparison.InvariantCultureIgnoreCase) &&
                         !HttpMethod.Trace.Method.Equals(context.Request.Method, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (!context.Request.ContentType.StartsWith("multipart/") && context.Request.Body != null)
+                        if (!(context.Request?.ContentType?.StartsWith("multipart/") ?? false) && 
+                            context.Request?.Body != null)
                         {
                             body = context.Request.ReadBodyAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                         }
