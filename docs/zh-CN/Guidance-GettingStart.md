@@ -90,18 +90,6 @@ services.RegisterOptions<SampleOptions>("SampleAlias", configuration);
 
 ---
 
-#### 后台任务
-
-ASP.NET Core 中提供了 `Microsoft.Extensions.Hosting.IHostedService` 这一接口，可用于实现一个后台任务。
-
-**STEP.WebX** 在此基础之上，封装了 `BackgroundSchedulerService` 抽象类型，支持后台任务轮询，并可设置任务延时启动、轮询间隔，可以自动注入 ASP.NET Core 的生命周期和依赖项。
-
-本项目根目录下的 `test\STEP.WebX.RESTfulSample\Services\Background\ClockingService` 文件，给出了一个后台任务的示例。
-
-如果对后台任务的定时执行有更细粒度的控制需求，可以配合基于 [Quartz.NET](https://www.quartz-scheduler.net/) 的 [Quartz.Plugins.Attributes](https://github.com/fudiwei/Quartz.Plugins.Attributes) 来使用。
-
----
-
 #### 扩展方法
 
 **STEP.WebX** 封装了一些 Web API 中常用的扩展方法，可供开发者使用。
