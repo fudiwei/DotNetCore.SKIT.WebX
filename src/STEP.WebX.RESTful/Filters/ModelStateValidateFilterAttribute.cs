@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -72,38 +71,6 @@ namespace STEP.WebX.RESTful.Filters
                 throw new ArgumentNullException(nameof(context));
 
             ValidateModelState(context);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="next"></param>
-        /// <returns></returns>
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            OnActionExecuting(context);
-
-            if (!context.HttpContext.Response.HasStarted)
-            {
-                await next.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="next"></param>
-        /// <returns></returns>
-        public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
-        {
-            OnResultExecuting(context);
-
-            if (!context.HttpContext.Response.HasStarted)
-            {
-                await next.Invoke();
-            }
         }
     }
 }
