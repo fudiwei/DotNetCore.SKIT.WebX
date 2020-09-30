@@ -85,13 +85,16 @@ namespace STEP.WebX.RESTful.DataAnnotations
             else
             {
                 string memberName = validationContext.GetActualMemberName();
+                Exception exception;
+
+                if (validationContext.IsMemberFromQuery())
+                    exception = new Exceptions.BadRequest400InvalidQueryException(memberName);
+                else
+                    exception = new Exceptions.BadRequest400InvalidParameterException(memberName);
 
                 if (ThrowOnFailures)
                 {
-                    if (validationContext.IsMemberFromQuery())
-                        throw new Exceptions.BadRequest400InvalidQueryException(memberName);
-                    else
-                        throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+                    throw exception;
                 }
 
                 return new ValidationResult($"The length of \"{memberName}\" is invalid.");

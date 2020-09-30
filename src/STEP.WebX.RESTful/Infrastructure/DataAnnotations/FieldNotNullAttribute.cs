@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace STEP.WebX.RESTful.DataAnnotations
 {
@@ -29,11 +30,6 @@ namespace STEP.WebX.RESTful.DataAnnotations
             return true;
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            return base.FormatErrorMessage(name);
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -52,23 +48,26 @@ namespace STEP.WebX.RESTful.DataAnnotations
             else
             {
                 string memberName = validationContext.GetActualMemberName();
+                Exception exception;
+
+                if (value == null)
+                {
+                    if (validationContext.IsMemberFromQuery())
+                        exception = new Exceptions.BadRequest400LackOfQueryException(memberName);
+                    else
+                        exception = new Exceptions.BadRequest400LackOfParameterException(memberName);
+                }
+                else
+                {
+                    if (validationContext.IsMemberFromQuery())
+                        exception = new Exceptions.BadRequest400InvalidQueryException(memberName);
+                    else
+                        exception = new Exceptions.BadRequest400InvalidParameterException(memberName);
+                }
 
                 if (ThrowOnFailures)
                 {
-                    if (value == null)
-                    {
-                        if (validationContext.IsMemberFromQuery())
-                            throw new Exceptions.BadRequest400LackOfQueryException(memberName);
-                        else
-                            throw new Exceptions.BadRequest400LackOfParameterException(memberName);
-                    }
-                    else
-                    {
-                        if (validationContext.IsMemberFromQuery())
-                            throw new Exceptions.BadRequest400InvalidQueryException(memberName);
-                        else
-                            throw new Exceptions.BadRequest400InvalidParameterException(memberName);
-                    }
+                    throw exception;
                 }
 
                 return new ValidationResult($"The value of \"{memberName}\" can not be null or empty.");
