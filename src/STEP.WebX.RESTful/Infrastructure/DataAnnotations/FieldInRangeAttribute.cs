@@ -11,7 +11,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
         /// <summary>
         /// 
         /// </summary>
-        public bool NoActionInterrupt { get; set; }
+        public bool ThrowOnFailures { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether can equal to the minimum (default: true).
@@ -86,18 +86,24 @@ namespace STEP.WebX.RESTful.DataAnnotations
             if (validationContext == null)
                 throw new ArgumentNullException(nameof(validationContext));
 
-            string memberName = validationContext.GetActualMemberName();
-
             if (IsValid(value))
+            {
                 return ValidationResult.Success;
-
-            if (NoActionInterrupt)
-                return new ValidationResult($"The value of \"{memberName}\" is out of range.");
-
-            if (validationContext.IsMemberFromQuery())
-                throw new Exceptions.BadRequest400InvalidQueryException(memberName);
+            }
             else
-                throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+            {
+                string memberName = validationContext.GetActualMemberName();
+
+                if (ThrowOnFailures)
+                {
+                    if (validationContext.IsMemberFromQuery())
+                        throw new Exceptions.BadRequest400InvalidQueryException(memberName);
+                    else
+                        throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+                }
+
+                return new ValidationResult($"The value of \"{memberName}\" is out of range.");
+            }
         }
     }
 }

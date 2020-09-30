@@ -11,7 +11,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
         /// <summary>
         /// 
         /// </summary>
-        public bool NoActionInterrupt { get; set; }
+        public bool ThrowOnFailures { get; set; }
 
         /// <summary>
         /// 
@@ -29,6 +29,11 @@ namespace STEP.WebX.RESTful.DataAnnotations
             return true;
         }
 
+        public override string FormatErrorMessage(string name)
+        {
+            return base.FormatErrorMessage(name);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,27 +45,33 @@ namespace STEP.WebX.RESTful.DataAnnotations
             if (validationContext == null)
                 throw new ArgumentNullException(nameof(validationContext));
 
-            string memberName = validationContext.GetActualMemberName();
-
             if (IsValid(value))
-                return ValidationResult.Success;
-
-            if (NoActionInterrupt)
-                return new ValidationResult($"The value of \"{memberName}\" can not be null or empty.");
-
-            if (value == null)
             {
-                if (validationContext.IsMemberFromQuery())
-                    throw new Exceptions.BadRequest400LackOfQueryException(memberName);
-                else
-                    throw new Exceptions.BadRequest400LackOfParameterException(memberName);
+                return ValidationResult.Success;
             }
             else
             {
-                if (validationContext.IsMemberFromQuery())
-                    throw new Exceptions.BadRequest400InvalidQueryException(memberName);
-                else
-                    throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+                string memberName = validationContext.GetActualMemberName();
+
+                if (ThrowOnFailures)
+                {
+                    if (value == null)
+                    {
+                        if (validationContext.IsMemberFromQuery())
+                            throw new Exceptions.BadRequest400LackOfQueryException(memberName);
+                        else
+                            throw new Exceptions.BadRequest400LackOfParameterException(memberName);
+                    }
+                    else
+                    {
+                        if (validationContext.IsMemberFromQuery())
+                            throw new Exceptions.BadRequest400InvalidQueryException(memberName);
+                        else
+                            throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+                    }
+                }
+
+                return new ValidationResult($"The value of \"{memberName}\" can not be null or empty.");
             }
         }
     }

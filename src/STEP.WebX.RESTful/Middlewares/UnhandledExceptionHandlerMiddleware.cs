@@ -58,21 +58,29 @@ namespace STEP.WebX.RESTful.Middlewares
             catch (RESTfulException ex)
             {
                 if (ex.Code >= 50000)
-                    _logger.LogError(_logGenerator.Invoke(context, ex));
+                {
+                    if (_logger.IsEnabled(LogLevel.Error))
+                        _logger.LogError(_logGenerator.Invoke(context, ex));
+                }
                 else
-                    _logger.LogWarning(_logGenerator.Invoke(context, ex));
+                {
+                    if (_logger.IsEnabled(LogLevel.Warning))
+                        _logger.LogWarning(_logGenerator.Invoke(context, ex));
+                }
 
                 await WriteResponseAsync(context, ex);
             }
             catch (ValidationException ex)
             {
-                _logger.LogWarning(_logGenerator.Invoke(context, ex));
+                if (_logger.IsEnabled(LogLevel.Warning))
+                    _logger.LogWarning(_logGenerator.Invoke(context, ex));
 
                 await WriteResponseAsync(context, new BadRequest400InvalidParameterException(ex.ValidationAttribute.ErrorMessageResourceName));
             }
             catch (BadHttpRequestException ex)
             {
-                _logger.LogWarning(_logGenerator.Invoke(context, ex));
+                if (_logger.IsEnabled(LogLevel.Warning))
+                    _logger.LogWarning(_logGenerator.Invoke(context, ex));
 
                 if (ex.Message != null && ex.Message.Contains("payload"))
                     await WriteResponseAsync(context, new BadRequest400PayloadTooLargeException());
@@ -89,7 +97,8 @@ namespace STEP.WebX.RESTful.Middlewares
                     }
                 }
 
-                _logger.LogCritical(_logGenerator.Invoke(context, ex));
+                if (_logger.IsEnabled(LogLevel.Critical))
+                    _logger.LogCritical(_logGenerator.Invoke(context, ex));
 
                 await WriteResponseAsync(context, new InternalServerError500FatalException());
             }

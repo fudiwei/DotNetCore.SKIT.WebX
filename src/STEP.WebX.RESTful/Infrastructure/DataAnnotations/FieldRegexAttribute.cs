@@ -11,7 +11,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
         /// <summary>
         /// 
         /// </summary>
-        public bool NoActionInterrupt { get; set; }
+        public bool ThrowOnFailures { get; set; } 
 
         /// <summary>
         /// 
@@ -43,18 +43,24 @@ namespace STEP.WebX.RESTful.DataAnnotations
             if (validationContext == null)
                 throw new ArgumentNullException(nameof(validationContext));
 
-            string memberName = validationContext.GetActualMemberName();
-
             if (IsValid(value))
+            {
                 return ValidationResult.Success;
-
-            if (NoActionInterrupt)
-                return new ValidationResult($"The value of \"{memberName}\" is invalid.");
-
-            if (validationContext.IsMemberFromQuery())
-                throw new Exceptions.BadRequest400InvalidQueryException(memberName);
+            }
             else
-                throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+            {
+                string memberName = validationContext.GetActualMemberName();
+
+                if (ThrowOnFailures)
+                {
+                    if (validationContext.IsMemberFromQuery())
+                        throw new Exceptions.BadRequest400InvalidQueryException(memberName);
+                    else
+                        throw new Exceptions.BadRequest400InvalidParameterException(memberName);
+                }
+
+                return new ValidationResult($"The value of \"{memberName}\" is invalid.");
+            }
         }
     }
 }

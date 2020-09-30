@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace STEP.WebX.RESTful.Filters
 {
     using Exceptions;
+    using WebApi;
 
     /// <summary>
     /// 
@@ -15,6 +16,37 @@ namespace STEP.WebX.RESTful.Filters
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
     internal class ModelStateValidateFilterAttribute : ActionFilterAttribute
     {
+        private void ValidateModelState(FilterContext context)
+        {
+            context.ModelState.MaxAllowedErrors = 1;
+            if (!context.ModelState.IsValid)
+            {
+                RESTfulException exception = context.ModelState
+                    .SelectMany(entry => entry.Value.Errors)
+                    .FirstOrDefault(err => err.Exception is RESTfulException)
+                    ?.Exception as RESTfulException;
+                if (exception == null)
+                {
+                    ModelStateEntry entry = context.ModelState.FirstOrDefault().Value;
+                    ModelError error = entry.Errors.FirstOrDefault();
+                    exception = new BadRequest400DataParsingException(error?.ErrorMessage, error?.Exception);
+                }
+
+                if (context is ActionExecutingContext actionExecutingContext)
+                {
+                    actionExecutingContext.Result = new RESTfulExceptionResult(exception);
+                }
+                else if (context is ResultExecutingContext resultExecutingContext)
+                {
+                    resultExecutingContext.Result = new RESTfulExceptionResult(exception);
+                }
+                else
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -24,16 +56,22 @@ namespace STEP.WebX.RESTful.Filters
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            context.ModelState.MaxAllowedErrors = 1;
-            if (!context.ModelState.IsValid)
+            if (context.ActionArguments.Any())
             {
-                var modelStateItem = context.ModelState.First();
-                string modelStateKey = modelStateItem.Key;
-                ModelStateEntry modelStateEntry = modelStateItem.Value;
-
-                Exception exception = modelStateEntry.Errors.FirstOrDefault(err => err.Exception is RESTfulException)?.Exception;
-                throw exception ?? new BadRequest400DataParsingException();
+                ValidateModelState(context);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        public override void OnResultExecuting(ResultExecutingContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+
+            ValidateModelState(context);
         }
 
         /// <summary>
@@ -45,8 +83,27 @@ namespace STEP.WebX.RESTful.Filters
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             OnActionExecuting(context);
-            
-            await next.Invoke();
+
+            if (!context.HttpContext.Response.HasStarted)
+            {
+                await next.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
+        public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+        {
+            OnResultExecuting(context);
+
+            if (!context.HttpContext.Response.HasStarted)
+            {
+                await next.Invoke();
+            }
         }
     }
 }
@@ -63,12 +120,12 @@ namespace STEP.WebX.RESTful
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="opts"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public static MvcOptions ValidateModelState(this MvcOptions opts)
+        public static MvcOptions ValidateModelState(this MvcOptions options)
         {
-            opts.Filters.Add(new ModelStateValidateFilterAttribute());
-            return opts;
+            options.Filters.Add(new ModelStateValidateFilterAttribute());
+            return options;
         }
     }
 }
