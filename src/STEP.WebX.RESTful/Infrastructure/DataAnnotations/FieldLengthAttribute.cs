@@ -84,7 +84,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
             }
             else
             {
-                string memberName = validationContext.GetActualMemberName();
+                string memberName = validationContext.GetMemberName();
                 Exception exception;
 
                 if (validationContext.IsMemberFromQuery())

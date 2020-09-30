@@ -14,11 +14,11 @@ namespace STEP.WebX.RESTful
     public static class ValidationContextPropertyExtensions
     {
         /// <summary>
-        /// Gets or the actual name of the member to validate.
+        /// Gets the actual name of the member to validate.
         /// </summary>
         /// <param name="validationContext"></param>
         /// <returns></returns>
-        public static string GetActualMemberName(this ValidationContext validationContext)
+        public static string GetMemberName(this ValidationContext validationContext)
         {
             string propertyName = null;
             var propertyInfo = validationContext.ObjectInstance.GetType().GetProperty(validationContext.MemberName);
@@ -42,7 +42,12 @@ namespace STEP.WebX.RESTful
             return propertyName ?? validationContext.MemberName ?? validationContext.DisplayName;
         }
 
-        internal static bool IsMemberFromQuery(this ValidationContext validationContext)
+        /// <summary>
+        /// Gets a value indicating whether the member is from the query part of current HTTP request.
+        /// </summary>
+        /// <param name="validationContext"></param>
+        /// <returns></returns>
+        public static bool IsMemberFromQuery(this ValidationContext validationContext)
         {
             var httpContext = validationContext.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             if (httpContext != null)

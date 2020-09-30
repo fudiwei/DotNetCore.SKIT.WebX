@@ -32,7 +32,7 @@ namespace STEP.WebX.RESTful.Paging
         public IReadOnlyList<PagingSortField> OrderByFields { get; }
 
         /// <summary>
-        /// Gets a value indicateing whether count the total number of data.
+        /// Gets a value indicating whether count the total number of data.
         /// </summary>
         public bool RequireCount { get; }
 
