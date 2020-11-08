@@ -116,7 +116,7 @@ namespace STEP.WebX.Grpc
             where TClient : ClientBase
             where TOptions : class, IGrpcClientOptions
         {
-            return services.AddGrpcClient<TClient>((provider, options) =>
+            return services.AddGrpcClient<TClient>(typeof(TClient).FullName, (provider, options) =>
             {
                 TOptions gRpcClientOptions = setupOptions?.Invoke(provider);
                 if (gRpcClientOptions == null)
