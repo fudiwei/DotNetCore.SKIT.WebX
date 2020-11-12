@@ -13,7 +13,7 @@ namespace STEP.WebX
     /// </summary>
     public static class HostBuilderHelper
     {
-#if NETCORE_2_X
+#if NETCOREAPP2_X
         /// <summary>
         /// 
         /// </summary>

@@ -35,7 +35,8 @@ namespace STEP.WebX.RESTful
             }
         }
 
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         public static System.Text.Json.JsonSerializerOptions DefaultSystemTextJsonSerializerSettings
         {
             get
@@ -69,7 +70,7 @@ namespace STEP.WebX.RESTful
             return JsonConvert.SerializeObject(obj, DefaultNewtonsoftJsonSerializerSettings);
 
             // TODO: There are so many bugs in System.Text.Json!
-            //#if NETCORE_2_X
+            //#if NETCOREAPP2_X
             //            return JsonConvert.SerializeObject(obj, DefaultNewtonsoftJsonSerializerSettings);
             //#else
             //            return System.Text.Json.JsonSerializer.Serialize(obj, DefaultSystemTextJsonSerializerSettings);

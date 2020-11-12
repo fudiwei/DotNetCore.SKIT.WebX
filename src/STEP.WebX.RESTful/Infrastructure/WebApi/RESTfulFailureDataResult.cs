@@ -18,7 +18,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("ret", Order = 11)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("ret")]
 #endif
         public bool ReturnValue { get; set; }
@@ -27,7 +28,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonIgnore]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonIgnore]
 #endif
         public string ReturnFailure { get; set; }
@@ -36,7 +38,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("data", Order = 12, NullValueHandling = NullValueHandling.Ignore)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyNameAttribute("data")]
 #endif
         public object Data

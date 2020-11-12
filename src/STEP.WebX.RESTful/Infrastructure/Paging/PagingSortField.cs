@@ -78,7 +78,6 @@ namespace STEP.WebX.RESTful.Paging
         public int CompareTo(PagingSortField value)
         {
             return
-                object.ReferenceEquals(value, this) ? 0 :
                 Name != value.Name ? Name.CompareTo(value.Name) :
                 Mode != value.Mode ? Mode.CompareTo(value.Mode) :
                 0;
@@ -93,8 +92,7 @@ namespace STEP.WebX.RESTful.Paging
         /// <returns></returns>
         public bool Equals(PagingSortField obj)
         {
-            return object.ReferenceEquals(obj, this) ||
-                (string.Equals(Name, obj.Name, StringComparison.InvariantCultureIgnoreCase) && Mode == obj.Mode);
+            return string.Equals(Name, obj.Name, StringComparison.InvariantCultureIgnoreCase) && Mode == obj.Mode;
         }
         #endregion
 
@@ -128,7 +126,7 @@ namespace STEP.WebX.RESTful.Paging
         /// <returns></returns>
         public static bool operator ==(PagingSortField f1, PagingSortField f2)
         {
-            return ReferenceEquals(f2, f1) ? true : f2.Equals(f1);
+            return f2.Equals(f1);
         }
 
         /// <summary>

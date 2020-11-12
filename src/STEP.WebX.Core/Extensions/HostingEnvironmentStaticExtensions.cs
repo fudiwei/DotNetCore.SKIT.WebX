@@ -14,7 +14,7 @@ namespace STEP.WebX
         /// <param name="env"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-#if NETCORE_2_X
+#if NETCOREAPP2_X
         public static string MapPath(this IHostingEnvironment env, string path)
 #else
         public static string MapPath(this IWebHostEnvironment env, string path)

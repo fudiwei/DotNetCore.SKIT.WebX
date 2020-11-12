@@ -54,7 +54,7 @@ namespace STEP.WebX.RESTful
         /// </summary>
         public Action<ForwardedHeadersOptions> SetupForwardedHeadersOptions { get; set; } = (options) => { };
 
-#if NETCORE_2_X
+#if NETCOREAPP2_X
         /// <summary>
         /// Gets or sets an <see cref="System.Action"/> to be executed before UseMvc.
         /// </summary>
@@ -152,7 +152,7 @@ namespace STEP.WebX.RESTful
                 app = app.UseForwardedHeaders(options);
             }
 
-#if NETCORE_2_X
+#if NETCOREAPP2_X
             // Use Mvc & CORS
             {
                 app.UseDefaultCors();

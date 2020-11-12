@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 
@@ -77,7 +76,11 @@ namespace STEP.WebX.RESTful.Middlewares
 
                 await WriteResponseAsync(context, new BadRequest400InvalidParameterException(ex.ValidationAttribute.ErrorMessageResourceName));
             }
+#if NETCOREAPP2_X || NETCOREAPP3_X
+            catch (Microsoft.AspNetCore.Server.Kestrel.Core.BadHttpRequestException ex)
+#else
             catch (BadHttpRequestException ex)
+#endif
             {
                 if (_logger.IsEnabled(LogLevel.Warning))
                     _logger.LogWarning(_logGenerator.Invoke(context, ex));

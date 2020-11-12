@@ -14,7 +14,8 @@ namespace STEP.WebX.RESTful
     /// </summary>
     public sealed class WebXRESTfulServiceSettings
     {
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         /// <summary>
         /// 
         /// </summary>
@@ -142,7 +143,7 @@ namespace Microsoft.Extensions.DependencyInjection
             // Inject Mvc
             {
                 IMvcBuilder builder = services
-#if NETCORE_2_X
+#if NETCOREAPP2_X
 
                     .AddMvc(options =>
                     {

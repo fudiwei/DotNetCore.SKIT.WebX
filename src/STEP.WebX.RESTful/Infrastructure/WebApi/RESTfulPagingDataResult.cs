@@ -19,7 +19,8 @@ namespace STEP.WebX.RESTful.WebApi
             /// 
             /// </summary>
             [JsonProperty("offset", Order = 1, NullValueHandling = NullValueHandling.Ignore)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("offset")]
 #endif
             public object Offset { get; set; }
@@ -28,7 +29,8 @@ namespace STEP.WebX.RESTful.WebApi
             /// 
             /// </summary>
             [JsonProperty("page", Order = 2, NullValueHandling = NullValueHandling.Ignore)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("page")]
 #endif
             public int? Page { get; set; }
@@ -37,8 +39,9 @@ namespace STEP.WebX.RESTful.WebApi
             /// 
             /// </summary>
             [JsonProperty("limit", Order = 3, NullValueHandling = NullValueHandling.Ignore)]
-#if !NETCORE_2_X
-        [System.Text.Json.Serialization.JsonPropertyName("limit")]
+#if NETCOREAPP2_X
+#else
+            [System.Text.Json.Serialization.JsonPropertyName("limit")]
 #endif
             public int? Limit { get; set; }
 
@@ -46,8 +49,9 @@ namespace STEP.WebX.RESTful.WebApi
             /// 
             /// </summary>
             [JsonProperty("items", Order = 4)]
-#if !NETCORE_2_X
-        [System.Text.Json.Serialization.JsonPropertyName("items")]
+#if NETCOREAPP2_X
+#else
+            [System.Text.Json.Serialization.JsonPropertyName("items")]
 #endif
             public IEnumerable<object> Items { get; set; }
 
@@ -55,8 +59,9 @@ namespace STEP.WebX.RESTful.WebApi
             /// 
             /// </summary>
             [JsonProperty("total_count", Order = 5, NullValueHandling = NullValueHandling.Ignore)]
-#if !NETCORE_2_X
-        [System.Text.Json.Serialization.JsonPropertyName("total_count")]
+#if NETCOREAPP2_X
+#else
+            [System.Text.Json.Serialization.JsonPropertyName("total_count")]
 #endif
             public int? TotalCount { get; set; }
 
@@ -72,7 +77,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("ret", Order = 11)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("ret")]
 #endif
         public bool ReturnValue { get; set; }
@@ -81,7 +87,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("data", Order = 12)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("data")]
 #endif
         public PagingData Data { get; }

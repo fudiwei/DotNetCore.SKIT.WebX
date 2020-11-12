@@ -20,7 +20,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonIgnore]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonIgnore]
 #endif
         public int HttpStatusCode { get; protected set; }
@@ -29,7 +30,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("errcode", Order = 1)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("errcode")]
 #endif
         public virtual int ErrorCode { get; protected set; }
@@ -38,7 +40,8 @@ namespace STEP.WebX.RESTful.WebApi
         /// 
         /// </summary>
         [JsonProperty("errmsg", Order = 2, NullValueHandling = NullValueHandling.Include)]
-#if !NETCORE_2_X
+#if NETCOREAPP2_X
+#else
         [System.Text.Json.Serialization.JsonPropertyName("errmsg")]
 #endif
         public virtual string ErrorMessage { get; protected set; }

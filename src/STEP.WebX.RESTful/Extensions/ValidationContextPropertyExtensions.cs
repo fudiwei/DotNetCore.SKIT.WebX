@@ -28,9 +28,10 @@ namespace STEP.WebX.RESTful
                 var jsonPropertyAttribute = propertyInfo.GetCustomAttribute<JsonPropertyAttribute>();
                 if (jsonPropertyAttribute == null)
                 {
-#if !NETCORE_2_X
-                var jsonPropertyNameAttribute = propertyInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
-                propertyName = jsonPropertyNameAttribute?.Name;
+#if NETCOREAPP2_X
+#else
+                    var jsonPropertyNameAttribute = propertyInfo.GetCustomAttribute<System.Text.Json.Serialization.JsonPropertyNameAttribute>();
+                    propertyName = jsonPropertyNameAttribute?.Name;
 #endif
                 }
                 else

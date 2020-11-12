@@ -23,10 +23,10 @@ namespace STEP.WebX.RESTful
             {
                 action.Invoke(await request.ReadBodyAsJsonAsync());
             }
-            catch (Exceptions.RESTfulException ex)
+            catch (Exceptions.RESTfulException)
             {
                 if (throwIfException)
-                    throw ex;
+                    throw;
             }
             catch (Exception ex)
             {
@@ -48,10 +48,10 @@ namespace STEP.WebX.RESTful
             {
                 return func.Invoke(await request.ReadBodyAsJsonAsync());
             }
-            catch (Exceptions.RESTfulException ex)
+            catch (Exceptions.RESTfulException)
             {
                 if (throwIfException)
-                    throw ex;
+                    throw;
                 else
                     return default(T);
             }
