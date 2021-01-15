@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -174,51 +175,171 @@ namespace STEP.WebX.RESTful.DataAnnotations
 
             if (OperandType == typeof(Byte))
             {
-                return EnumeratedValues.Any(e => Byte.TryParse(value.ToString(), out Byte val) && val == (Byte)e);
+                bool IsDefined(object obj)
+                { 
+                    return EnumeratedValues.Any(e => Byte.TryParse(obj.ToString(), out Byte n) && n == (Byte)e);
+                }
+
+                if (value is IEnumerable<Byte>)
+                {
+                    return ((IEnumerable<Byte>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Char))
             {
-                return EnumeratedValues.Any(e => Char.TryParse(value.ToString(), out Char val) && val == (Char)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Char.TryParse(obj.ToString(), out Char n) && n == (Char)e);
+                }
+
+                if (value is IEnumerable<Char>)
+                {
+                    return ((IEnumerable<Char>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Decimal))
             {
-                return EnumeratedValues.Any(e => Decimal.TryParse(value.ToString(), out Decimal val) && val == (Decimal)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Decimal.TryParse(obj.ToString(), out Decimal n) && n == (Decimal)e);
+                }
+
+                if (value is IEnumerable<Decimal>)
+                {
+                    return ((IEnumerable<Decimal>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Double))
             {
-                return EnumeratedValues.Any(e => Double.TryParse(value.ToString(), out Double val) && val == (Double)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Double.TryParse(obj.ToString(), out Double n) && n == (Double)e);
+                }
+
+                if (value is IEnumerable<Double>)
+                {
+                    return ((IEnumerable<Double>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Int16))
             {
-                return EnumeratedValues.Any(e => Int16.TryParse(value.ToString(), out Int16 val) && val == (Int16)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Int16.TryParse(obj.ToString(), out Int16 n) && n == (Int16)e);
+                }
+
+                if (value is IEnumerable<Int16>)
+                {
+                    return ((IEnumerable<Int16>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Int32))
             {
-                return EnumeratedValues.Any(e => Int32.TryParse(value.ToString(), out Int32 val) && val == (Int32)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Int32.TryParse(obj.ToString(), out Int32 n) && n == (Int32)e);
+                }
+
+                if (value is IEnumerable<Int32>)
+                {
+                    return ((IEnumerable<Int32>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Int64))
             {
-                return EnumeratedValues.Any(e => Int64.TryParse(value.ToString(), out Int64 val) && val == (Int64)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Int64.TryParse(obj.ToString(), out Int64 n) && n == (Int64)e);
+                }
+
+                if (value is IEnumerable<Int64>)
+                {
+                    return ((IEnumerable<Int64>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(Single))
             {
-                return EnumeratedValues.Any(e => Single.TryParse(value.ToString(), out Single val) && val == (Single)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => Single.TryParse(obj.ToString(), out Single n) && n == (Single)e);
+                }
+
+                if (value is IEnumerable<Single>)
+                {
+                    return ((IEnumerable<Single>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(UInt16))
             {
-                return EnumeratedValues.Any(e => UInt16.TryParse(value.ToString(), out UInt16 val) && val == (UInt16)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => UInt16.TryParse(obj.ToString(), out UInt16 n) && n == (UInt16)e);
+                }
+
+                if (value is IEnumerable<UInt16>)
+                {
+                    return ((IEnumerable<UInt16>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(UInt32))
             {
-                return EnumeratedValues.Any(e => UInt32.TryParse(value.ToString(), out UInt32 val) && val == (UInt32)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => UInt32.TryParse(obj.ToString(), out UInt32 n) && n == (UInt32)e);
+                }
+
+                if (value is IEnumerable<UInt32>)
+                {
+                    return ((IEnumerable<UInt32>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(UInt64))
             {
-                return EnumeratedValues.Any(e => UInt64.TryParse(value.ToString(), out UInt64 val) && val == (UInt64)e);
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => UInt64.TryParse(obj.ToString(), out UInt64 n) && n == (UInt64)e);
+                }
+
+                if (value is IEnumerable<UInt64>)
+                {
+                    return ((IEnumerable<UInt64>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
             else if (OperandType == typeof(String))
             {
-                return EnumeratedValues.Any(e => String.Equals(e?.ToString(), value.ToString(), StringComparison.InvariantCultureIgnoreCase));
+                bool IsDefined(object obj)
+                {
+                    return EnumeratedValues.Any(e => String.Equals(e?.ToString(), obj.ToString(), StringComparisonType));
+                }
+
+                if (value is IEnumerable<String>)
+                {
+                    return ((IEnumerable<String>)value).All(e => IsDefined(e));
+                }
+
+                return IsDefined(value);
             }
 
             return EnumeratedValues.Contains(value);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace STEP.WebX.RESTful.DataAnnotations
 {
@@ -63,7 +62,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                 return true;
             }
 
-            int len = (value is ICollection) ? ((ICollection)this).Count : ((string)value).Length;
+            int len = ((string)value).Length;
             return len >= MinimumLength && len <= MaximumLength;
         }
 
