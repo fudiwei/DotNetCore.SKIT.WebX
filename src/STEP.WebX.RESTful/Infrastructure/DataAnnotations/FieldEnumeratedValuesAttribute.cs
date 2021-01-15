@@ -176,16 +176,11 @@ namespace STEP.WebX.RESTful.DataAnnotations
             if (OperandType == typeof(Byte))
             {
                 bool IsDefined(object obj)
-                { 
+                {
                     return EnumeratedValues.Any(e => Byte.TryParse(obj.ToString(), out Byte n) && n == (Byte)e);
                 }
 
-                if (value is IEnumerable<Byte>)
-                {
-                    return ((IEnumerable<Byte>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Byte>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Char))
             {
@@ -194,12 +189,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Char.TryParse(obj.ToString(), out Char n) && n == (Char)e);
                 }
 
-                if (value is IEnumerable<Char>)
-                {
-                    return ((IEnumerable<Char>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Char>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Decimal))
             {
@@ -208,12 +198,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Decimal.TryParse(obj.ToString(), out Decimal n) && n == (Decimal)e);
                 }
 
-                if (value is IEnumerable<Decimal>)
-                {
-                    return ((IEnumerable<Decimal>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Decimal>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Double))
             {
@@ -222,12 +207,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Double.TryParse(obj.ToString(), out Double n) && n == (Double)e);
                 }
 
-                if (value is IEnumerable<Double>)
-                {
-                    return ((IEnumerable<Double>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Double>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Int16))
             {
@@ -236,12 +216,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Int16.TryParse(obj.ToString(), out Int16 n) && n == (Int16)e);
                 }
 
-                if (value is IEnumerable<Int16>)
-                {
-                    return ((IEnumerable<Int16>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Int16>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Int32))
             {
@@ -250,12 +225,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Int32.TryParse(obj.ToString(), out Int32 n) && n == (Int32)e);
                 }
 
-                if (value is IEnumerable<Int32>)
-                {
-                    return ((IEnumerable<Int32>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Int32>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Int64))
             {
@@ -264,12 +234,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Int64.TryParse(obj.ToString(), out Int64 n) && n == (Int64)e);
                 }
 
-                if (value is IEnumerable<Int64>)
-                {
-                    return ((IEnumerable<Int64>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Int64>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(Single))
             {
@@ -278,12 +243,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => Single.TryParse(obj.ToString(), out Single n) && n == (Single)e);
                 }
 
-                if (value is IEnumerable<Single>)
-                {
-                    return ((IEnumerable<Single>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<Single>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(UInt16))
             {
@@ -292,12 +252,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => UInt16.TryParse(obj.ToString(), out UInt16 n) && n == (UInt16)e);
                 }
 
-                if (value is IEnumerable<UInt16>)
-                {
-                    return ((IEnumerable<UInt16>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<UInt16>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(UInt32))
             {
@@ -306,12 +261,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => UInt32.TryParse(obj.ToString(), out UInt32 n) && n == (UInt32)e);
                 }
 
-                if (value is IEnumerable<UInt32>)
-                {
-                    return ((IEnumerable<UInt32>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<UInt32>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(UInt64))
             {
@@ -320,12 +270,7 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => UInt64.TryParse(obj.ToString(), out UInt64 n) && n == (UInt64)e);
                 }
 
-                if (value is IEnumerable<UInt64>)
-                {
-                    return ((IEnumerable<UInt64>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<UInt64>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
             else if (OperandType == typeof(String))
             {
@@ -334,15 +279,10 @@ namespace STEP.WebX.RESTful.DataAnnotations
                     return EnumeratedValues.Any(e => String.Equals(e?.ToString(), obj.ToString(), StringComparisonType));
                 }
 
-                if (value is IEnumerable<String>)
-                {
-                    return ((IEnumerable<String>)value).All(e => IsDefined(e));
-                }
-
-                return IsDefined(value);
+                return (value as IEnumerable<String>)?.All(e => IsDefined(e)) ?? IsDefined(value);
             }
 
-            return EnumeratedValues.Contains(value);
+            return (value as IEnumerable<object>)?.All(e => EnumeratedValues.Contains(e)) ?? EnumeratedValues.Contains(value);
         }
 
         /// <summary>
