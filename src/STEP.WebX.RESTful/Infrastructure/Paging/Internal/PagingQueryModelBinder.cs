@@ -22,7 +22,7 @@ namespace STEP.WebX.RESTful.Paging
         const string ORDER_BY_DESC = "desc";
 
         readonly int MAX_PAGE = (int)Math.Pow(2, 32) - 1;
-        readonly int MAX_LIMIT = (int)Math.Pow(2, 8) - 1;
+        readonly int MAX_LIMIT = (int)Math.Pow(2, 16) - 1;
 
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
