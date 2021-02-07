@@ -4,7 +4,7 @@
 
 ### 跨平台支持
 
-**STEP.WebX** 包含多个版本的库：
+**SKIT.WebX** 包含多个版本的库：
 
 * .NET Core 2.1
 * .NET Core 2.2
@@ -12,7 +12,7 @@
 * .NET Core 3.1
 * .NET 5.0
 
-这意味着你可以在如下环境使用 **STEP.Locking**：
+这意味着你可以在如下环境使用 **SKIT.Locking**：
 
 * 在 Windows 中使用 .NET Core；
 * 在 Windows 中使用 .NET 5；

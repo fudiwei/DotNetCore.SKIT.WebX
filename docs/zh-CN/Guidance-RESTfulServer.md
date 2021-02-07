@@ -6,7 +6,7 @@
 
 > 提示：本文档中出现的示例代码，如果没有特别说明，均以 .NET Core 3.1 为例，其他版本写法可能会略有不同。
 
-项目需要是一个 ASP.NET Core 类型的工程，并引入 **STEP.WebX.RESTful**。
+项目需要是一个 ASP.NET Core 类型的工程，并引入 **SKIT.WebX.RESTful**。
 
 ---
 
@@ -22,7 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace STEP.WebX.RESTful
+namespace SKIT.WebX.RESTful
 {
     public class Startup
     {
@@ -45,7 +45,7 @@ namespace STEP.WebX.RESTful
 
 #### 参数配置
 
-**STEP.WebX.RESTful** 实际上封装了健康检查、前向代理、认证、授权、MVC、CORS 等一些中间件，大多数情况下，你都不需要对其配置作出改变。
+**SKIT.WebX.RESTful** 实际上封装了健康检查、前向代理、认证、授权、MVC、CORS 等一些中间件，大多数情况下，你都不需要对其配置作出改变。
 
 如果需要调整参数，可以在依赖注入时进行。
 
@@ -131,13 +131,13 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 可按照[《Microsoft Docs - 在 ASP.NET Core MVC 中使用控制器处理请求》](https://docs.microsoft.com/zh-cn/aspnet/core/mvc/controllers/actions?view=aspnetcore-3.1)一文来实现 RESTful Web API 服务。
 
-但如果需要 **STEP.WebX.RESTful** 能自动将程序集下所有 Controller 自动注入，则控制器还需要继承自 `RESTfulControllerBase` 类型。
+但如果需要 **SKIT.WebX.RESTful** 能自动将程序集下所有 Controller 自动注入，则控制器还需要继承自 `RESTfulControllerBase` 类型。
 
 ``` csharp
 using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace STEP.WebX.RESTful
+namespace SKIT.WebX.RESTful
 {
     public class SampleController : RESTfulControllerBase
     {

@@ -6,7 +6,7 @@
 
 > 提示：本文档中出现的示例代码，如果没有特别说明，均以 .NET Core 3.1 为例，其他版本写法可能会略有不同。
 
-项目需要是一个 ASP.NET Core 类型的工程，并引入 **STEP.WebX.RESTful**。
+项目需要是一个 ASP.NET Core 类型的工程，并引入 **SKIT.WebX.RESTful**。
 
 ---
 
@@ -14,7 +14,7 @@
 
 RESTful 中常用 `GET`、`POST`、`PUT`、`PATCH`、`DELETE` 等谓词，用来表示增删改查相关的动作。
 
-**STEP.WebX.RESTful** 提供了相应的常量值，可用于限定指定路由所接受的谓词。
+**SKIT.WebX.RESTful** 提供了相应的常量值，可用于限定指定路由所接受的谓词。
 
 ``` csharp
 [AcceptVerbs(RESTfulVerbs.Post)]
@@ -34,9 +34,9 @@ public Task<IActionResult> SampleAction()
 
 #### 模型验证
 
-**STEP.WebX.RESTful** 是基于 ASP.NET Core MVC 实现的，所有 ASP.NET Core MVC 支持的请求模型验证特性，**STEP.WebX.RESTful** 也都支持（请参考[《Microsoft Docs - ASP.NET Core MVC 中的模型验证》](https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-3.1)）。
+**SKIT.WebX.RESTful** 是基于 ASP.NET Core MVC 实现的，所有 ASP.NET Core MVC 支持的请求模型验证特性，**SKIT.WebX.RESTful** 也都支持（请参考[《Microsoft Docs - ASP.NET Core MVC 中的模型验证》](https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-3.1)）。
 
-但因为异常状态的统一转换（见下文），ASP.NET Core 内置的这些特性，在请求模型验证失败时的错误信息不够详细具体。为了更明确地说明错误原因，**STEP.WebX.RESTful** 也提供了一些请求模型验证特性。
+但因为异常状态的统一转换（见下文），ASP.NET Core 内置的这些特性，在请求模型验证失败时的错误信息不够详细具体。为了更明确地说明错误原因，**SKIT.WebX.RESTful** 也提供了一些请求模型验证特性。
 
 下面给出一些具体的示例：
 
@@ -94,7 +94,7 @@ public class SampleModel
 
 #### 分页查询
 
-很多时候，我们需要以分页的形式查询某个数据列表。**STEP.WebX.RESTful** 内置了分页的查询参数强类型映射方式。
+很多时候，我们需要以分页的形式查询某个数据列表。**SKIT.WebX.RESTful** 内置了分页的查询参数强类型映射方式。
 
 ``` csharp
 public Task<IActionResult> SampleAction([FromQuery] PagingQueryModel pagingQuery)
@@ -121,7 +121,7 @@ public Task<IActionResult> SampleAction([FromQuery] PagingQueryModel pagingQuery
 
 #### 响应结果
 
-为了规范化 Web API 的响应结果的数据结构，**STEP.WebX.RESTful** 内置了统一的抽象模型 —— `RESTfulResult`。它有着固定的数据结构，且遵循 HTTP 状态码的语义，以 JSON 形式返回给请求发起者。
+为了规范化 Web API 的响应结果的数据结构，**SKIT.WebX.RESTful** 内置了统一的抽象模型 —— `RESTfulResult`。它有着固定的数据结构，且遵循 HTTP 状态码的语义，以 JSON 形式返回给请求发起者。
 
 通常情况下，响应结果将以 `200` 的 HTTP 状态码返回，形如：
 
@@ -136,7 +136,7 @@ public Task<IActionResult> SampleAction([FromQuery] PagingQueryModel pagingQuery
 }
 ```
 
-如果接口调用失败，会返回除 `2xx` 以外的其他 HTTP 状态码。**STEP.WebX.RESTful** 内置了一些常见的错误类型，开发者也可根据业务需要自行扩充。
+如果接口调用失败，会返回除 `2xx` 以外的其他 HTTP 状态码。**SKIT.WebX.RESTful** 内置了一些常见的错误类型，开发者也可根据业务需要自行扩充。
 
 > 提示：后面的章节将给出常见的错误类型清单。
 
@@ -144,4 +144,4 @@ public Task<IActionResult> SampleAction([FromQuery] PagingQueryModel pagingQuery
 
 #### HttpClient
 
-如果想以 HttpClient 的方式调用 RESTful Web API，可以配合 [STEP.Http.WebApi](https://github.com/fudiwei/STEP.Http) 使用。
+如果想以 HttpClient 的方式调用 RESTful Web API，可以配合 [SKIT.Http.WebApi](https://github.com/fudiwei/SKIT.Http) 使用。

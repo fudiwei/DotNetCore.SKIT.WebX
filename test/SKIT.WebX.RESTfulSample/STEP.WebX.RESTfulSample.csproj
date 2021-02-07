@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\SKIT.WebX.Core\SKIT.WebX.Core.csproj" />
+        <ProjectReference Include="..\..\src\SKIT.WebX.RESTful\SKIT.WebX.RESTful.csproj" />
+    </ItemGroup>
+
+</Project>

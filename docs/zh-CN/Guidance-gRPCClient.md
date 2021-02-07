@@ -6,7 +6,7 @@
 
 > 提示：本文档中出现的示例代码，如果没有特别说明，均以 .NET Core 3.1 为例，其他版本写法可能会略有不同。
 
-项目需要是一个 ASP.NET Core 类型的工程，并引入 **STEP.WebX.Grpc** 和 **Grpc.Net.ClientFactory**。
+项目需要是一个 ASP.NET Core 类型的工程，并引入 **SKIT.WebX.Grpc** 和 **Grpc.Net.ClientFactory**。
 
 ---
 
@@ -14,7 +14,7 @@
 
 可按照[《Microsoft Docs - .NET Core 中的 gRPC 客户端工厂集成》](https://docs.microsoft.com/zh-cn/aspnet/core/grpc/clientfactory?view=aspnetcore-3.1)一文来实现 gRPC 客户端。
 
-**STEP.WebX.Grpc** 提供了 `IGrpcClientOptions` 接口，可以方便的依赖注入一些 gRPC 客户端所需的参数。
+**SKIT.WebX.Grpc** 提供了 `IGrpcClientOptions` 接口，可以方便的依赖注入一些 gRPC 客户端所需的参数。
 
 ``` csharp
 // 定义 gRPC 客户端配置项实体类

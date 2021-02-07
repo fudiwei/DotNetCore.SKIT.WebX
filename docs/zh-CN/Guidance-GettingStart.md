@@ -6,7 +6,7 @@
 
 > 提示：本文档中出现的示例代码，如果没有特别说明，均以 .NET Core 3.1 为例，其他版本写法可能会略有不同。
 
-项目需要是一个 ASP.NET Core 类型的工程，并引入 **STEP.WebX.Core**。
+项目需要是一个 ASP.NET Core 类型的工程，并引入 **SKIT.WebX.Core**。
 
 ---
 
@@ -19,7 +19,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace STEP.WebX.RESTful
+namespace SKIT.WebX.RESTful
 {
     public class Program
     {
@@ -42,7 +42,7 @@ namespace STEP.WebX.RESTful
 
 #### 配置注入
 
-**STEP.WebX** 封装了动态配置的依赖注入方法，可以很简单将配置项映射为强类型。
+**SKIT.WebX** 封装了动态配置的依赖注入方法，可以很简单将配置项映射为强类型。
 
 注意，强类型实体需实现 `Microsoft.Extensions.Options.IOptions<TOptions>` 接口。
 
@@ -92,7 +92,7 @@ services.RegisterOptions<SampleOptions>("SampleAlias", configuration);
 
 #### 扩展方法
 
-**STEP.WebX** 封装了一些 Web API 中常用的扩展方法，可供开发者使用。
+**SKIT.WebX** 封装了一些 Web API 中常用的扩展方法，可供开发者使用。
 
 * 将 HTTP 请求的标头集合转换为字典：
 

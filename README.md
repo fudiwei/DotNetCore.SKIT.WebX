@@ -1,4 +1,4 @@
-# STEP.WebX
+# SKIT.WebX
 
 ## Documentation / 开发文档
 

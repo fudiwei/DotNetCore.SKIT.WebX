@@ -6,7 +6,7 @@
 
 > 提示：本文档中出现的示例代码，如果没有特别说明，均以 .NET Core 3.1 为例，其他版本写法可能会略有不同。
 
-项目需要是一个 ASP.NET Core 类型的工程，并引入 **STEP.WebX.Grpc** 和 **Grpc.AspNetCore**。
+项目需要是一个 ASP.NET Core 类型的工程，并引入 **SKIT.WebX.Grpc** 和 **Grpc.AspNetCore**。
 
 ---
 
@@ -22,7 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace STEP.WebX.Grpc
+namespace SKIT.WebX.Grpc
 {
     public class Startup
     {
@@ -45,7 +45,7 @@ namespace STEP.WebX.Grpc
 
 #### 参数配置
 
-**STEP.WebX.Grpc** 实际上封装了认证、授权、gRPC 等一些中间件，大多数情况下，你都不需要对其配置作出改变。
+**SKIT.WebX.Grpc** 实际上封装了认证、授权、gRPC 等一些中间件，大多数情况下，你都不需要对其配置作出改变。
 
 如果需要调整参数，可以在依赖注入时进行。
 
@@ -99,13 +99,13 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 
 可按照[《Microsoft Docs - .NET Core 上的 gRPC 的简介》](https://docs.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-3.1)一文来实现 gRPC Web API 服务。
 
-但如果需要 **STEP.WebX.Grpc** 能自动将程序集下所有 gRPC Service 自动注入，则还需要添加 `GrpcService` 的特性。
+但如果需要 **SKIT.WebX.Grpc** 能自动将程序集下所有 gRPC Service 自动注入，则还需要添加 `GrpcService` 的特性。
 
 ``` csharp
 using System;
 using Grpc.Core;
 
-namespace STEP.WebX.Grpc
+namespace SKIT.WebX.Grpc
 {
     [GrpcService]
     public class SampleGrpcService : SampleService.SampleServiceBase
@@ -118,7 +118,7 @@ namespace STEP.WebX.Grpc
 
 #### RESTful 与 gRPC 混合使用
 
-由于 **STEP.WebX.RESTful** 和 **STEP.WebX.Grpc** 各自定义了不同的中间件管道顺序，所以当二者需要同时启用时，需要在 `Startup.cs` 中做特殊处理。
+由于 **SKIT.WebX.RESTful** 和 **SKIT.WebX.Grpc** 各自定义了不同的中间件管道顺序，所以当二者需要同时启用时，需要在 `Startup.cs` 中做特殊处理。
 
 ``` csharp
 public class Startup
